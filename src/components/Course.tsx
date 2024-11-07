@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
+
 interface Course {
   title: string;
   description: string;

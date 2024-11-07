@@ -6,10 +6,18 @@ interface CourseCredentials {
   codeExample: string;
 }
 
+interface UpdateCourseCredentials {
+  title?: string;
+  description?: string;
+  codeExample?: string;
+}
+
 interface CourseState {
-  courses: string[];
+  courses: CourseCredentials[];
   addCourse: (crdentials: CourseCredentials) => void;
   getCourse: () => void;
+  updateCourse: (Credentials: UpdateCourseCredentials) => void;
+  deleteCourse: (title: string) => void;
 }
 
 const useCourseStore = create<CourseState>((set) => ({
@@ -49,6 +57,50 @@ const useCourseStore = create<CourseState>((set) => ({
       const errorMessage =
         error instanceof Error ? error.message : "Unknown Error";
       console.log("Course fetch failed", errorMessage);
+    }
+  },
+
+  updateCourse: async (credentials) => {
+    try {
+      const response = await fetch("/api/course", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(credentials),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to update course");
+      }
+
+      const updatedCourse = await response.json();
+
+      return updatedCourse;
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : "Unknown Error";
+      console.log("Course update failed", errorMessage);
+    }
+  },
+  
+  deleteCourse: async (title) => {
+    try {
+      const response = await fetch(`/api/course/${title}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to delete course");
+      }
+      const deleteCourse = await response.json();
+      return deleteCourse;
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : "Unknown Error";
+      console.log("Course delete failed", errorMessage);
     }
   },
 }));
