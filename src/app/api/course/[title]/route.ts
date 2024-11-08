@@ -65,11 +65,11 @@ export async function PUT(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { title: string } }
+  { params }: { params: Promise<{ title: string }> }
 ) {
   await connectDB();
   try {
-    const { title } = params;
+    const { title } = await params;
 
     const courseToDelete = await Course.findOneAndDelete({ title });
     if (!courseToDelete) {
