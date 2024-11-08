@@ -11,11 +11,11 @@ const courseSchema = z.object({
 
 export async function PUT(
   request: Request,
-  { params }: { params: { title: string } }
+  { params }: { params: Promise<{ title: string }> }
 ) {
   await connectDB();
   try {
-    const { title: prevTitle } = params;
+    const { title: prevTitle } = await params;
 
     const body = await request.json();
     const { title, description, codeExample } = courseSchema.parse(body);

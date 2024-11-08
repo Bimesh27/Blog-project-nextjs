@@ -11,7 +11,7 @@ const CourseWrapper = () => {
       await getCourse();
     };
     fetchCourse();
-  }, []);
+  }, [getCourse]);
 
   return (
     <div className="w-full flex flex-col">
