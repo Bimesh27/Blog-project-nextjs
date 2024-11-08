@@ -15,7 +15,7 @@ const CourseWrapper = () => {
     fetchCourse();
   }, [getCourse]);
 
-  if (!loading) {
+  if (loading) {
     return (
       <div className="h-[calc(100vh-50vh)] w-full flex justify-center items-center">
         <ThreeDotLoading />
