@@ -9,6 +9,7 @@ const courseSchema = z.object({
   codeExample: z.string().min(1, "Code example is required"),
 });
 
+
 export async function PUT(
   request: Request,
   { params }: { params: Promise<{ title: string }> }
@@ -62,6 +63,7 @@ export async function PUT(
     );
   }
 }
+
 
 export async function DELETE(
   request: Request,

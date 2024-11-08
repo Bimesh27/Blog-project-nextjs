@@ -14,7 +14,7 @@ interface CourseProps {
 
 const Course = ({ course }: CourseProps) => {
   return (
-    <div className="flex w-full min-h-72 border border-[#fafafa2f] text-wrap p-8 justify-center max-md:flex-col max-md:items-center">
+    <div className="flex w-full min-h-80 border border-[#e8e7e7] dark:border-[#fafafa2f] text-wrap p-8 justify-center max-md:flex-col max-md:items-center items-center">
       <section className="w-full sm:w-[50%] flex flex-col items-center gap-3">
         <div className="w-full text-center md:w-[50%] flex flex-col items-center gap-2">
           <h1 className="text-5xl font-bold">{course.title}</h1>
@@ -22,7 +22,7 @@ const Course = ({ course }: CourseProps) => {
         </div>
         <Link
           href={`/learn/${course.title.toLowerCase().replace("++", "pp")}`}
-          className="bg-emerald-600 rounded-full px-8 py-2.5 font-semibold"
+          className="bg-emerald-500 dark:bg-emerald-600 rounded-full px-8 py-2.5 font-semibold"
         >
           Learn {course.title}
         </Link>

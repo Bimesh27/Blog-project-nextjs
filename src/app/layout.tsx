@@ -3,6 +3,8 @@ import localFont from "next/font/local";
 import "./globals.css";
 
 import Navbar from "@/components/Navbar";
+import { ThemeProvider } from "@/components/theme-provider";
+import React from "react";
 
 const poppins = localFont({
   src: [
@@ -51,7 +53,7 @@ const poppins = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Blog",
+  title: "Consise Guy | Learn Code Concisely",
   description:
     "A simple blog project, that will teach you how to code like a pro",
 };
@@ -63,9 +65,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       <body className={poppins.variable}>
-        <Navbar />
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <div className="min-h-screen">
+            <Navbar />
+            {children}
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );

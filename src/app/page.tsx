@@ -1,6 +1,7 @@
 import CourseWrapper from "@/components/CourseWrapper";
 
 export default function Home() {
+  
   return (
     <div className=" min-h-[calc(100vh-4rem)] w-full justify-center">
       <div>
@@ -13,7 +14,10 @@ export default function Home() {
         </section>
         <section className="w-full justify-center flex mt-20 flex-col items-center gap-6">
           <h1 className="text-4xl max-sm:text-2xl font-semibold">
-            Available <span className="bg-emerald-600 px-2">Course</span>
+            Available{" "}
+            <span className="bg-emerald-500 dark:bg-emerald-600 px-2">
+              Course
+            </span>
           </h1>
           <CourseWrapper />
         </section>

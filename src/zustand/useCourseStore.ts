@@ -13,6 +13,7 @@ interface UpdateCourseCredentials {
 }
 
 interface CourseState {
+  loading: boolean;
   courses: CourseCredentials[];
   addCourse: (crdentials: CourseCredentials) => void;
   getCourse: () => void;
@@ -22,6 +23,7 @@ interface CourseState {
 
 const useCourseStore = create<CourseState>((set) => ({
   courses: [],
+  loading: false,
   addCourse: async (crdentials) => {
     try {
       const response = await fetch("/api/course", {
@@ -46,6 +48,7 @@ const useCourseStore = create<CourseState>((set) => ({
 
   getCourse: async () => {
     try {
+      set(() => ({ loading: true }));
       const response = await fetch("/api/course");
       if (!response.ok) {
         throw new Error("Failed to fetch courses");
@@ -57,6 +60,8 @@ const useCourseStore = create<CourseState>((set) => ({
       const errorMessage =
         error instanceof Error ? error.message : "Unknown Error";
       console.log("Course fetch failed", errorMessage);
+    } finally {
+      set(() => ({ loading: false }));
     }
   },
 
@@ -82,7 +87,7 @@ const useCourseStore = create<CourseState>((set) => ({
       console.log("Course update failed", errorMessage);
     }
   },
-  
+
   deleteCourse: async (title) => {
     try {
       const response = await fetch(`/api/course/${title}`, {
@@ -95,8 +100,10 @@ const useCourseStore = create<CourseState>((set) => ({
       if (!response.ok) {
         throw new Error("Failed to delete course");
       }
-      const deleteCourse = await response.json();
-      return deleteCourse;
+
+      set((state) => ({
+        courses: state.courses.filter((course) => course.title !== title),
+      }));
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : "Unknown Error";
