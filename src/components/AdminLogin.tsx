@@ -28,12 +28,15 @@ export default function AdminLogin() {
 
       if (res.success) {
         toast({
+          className: "bg-emerald-500",
           description: "Logged in successfully",
         });
         setOpen(false);
         setPasscode("");
       } else {
         toast({
+          variant: "destructive",
+          className: "bg-red-500 ",
           description: "Invalid passcode",
         });
         setPasscode("");
@@ -52,7 +55,7 @@ export default function AdminLogin() {
     <div>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button variant="outline">Admin Login</Button>
+          <Button className="bg-blue-600 hover:bg-blue-700 text-white">Admin Login</Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>

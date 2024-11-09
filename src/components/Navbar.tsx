@@ -1,11 +1,9 @@
 import Link from "next/link";
 import { ModeToggle } from "./ToggleTheme";
-import AdminLogin from "./AdminLogin";
+import MenuBar from "./MenuBar";
 import { checkLogin } from "@/app/admin/actions/auth";
-import AdminLogout from "./AdminLogout";
 
 const Navbar = async () => {
-  
   const isLogin = await checkLogin();
   
   return (
@@ -13,9 +11,9 @@ const Navbar = async () => {
       <Link href="/" className="text-3xl font-bold">
         C<span className="text-emerald-500">G</span>.
       </Link>
-      <div className="flex gap-4">
-        {isLogin ? <AdminLogout/> : <AdminLogin />}
+      <div className="flex gap-4 items-center">
         <ModeToggle />
+      <MenuBar isLogin={isLogin}/>
       </div>
     </div>
   );
