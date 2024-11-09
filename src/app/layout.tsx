@@ -5,6 +5,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import React from "react";
+import { Toaster } from "@/components/ui/toaster";
 
 const poppins = localFont({
   src: [
@@ -76,6 +77,7 @@ export default function RootLayout({
           <div className="min-h-screen">
             <Navbar />
             {children}
+            <Toaster/>
           </div>
         </ThemeProvider>
       </body>
