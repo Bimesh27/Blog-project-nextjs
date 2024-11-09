@@ -59,7 +59,7 @@ export async function logoutAdmin() {
   } catch (error) {
     return {
       success: false,
-      message: "Failed to logout",
+      message: "Failed to logout" + error,
     };
   }
 }

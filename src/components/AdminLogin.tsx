@@ -40,7 +40,7 @@ export default function AdminLogin() {
       }
     } catch (error) {
       toast({
-        description: "Something went wrong",
+        description: "Something went wrong" + error,
       });
     } finally {
       setIsLoading(false);
