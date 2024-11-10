@@ -1,6 +1,10 @@
+import AdminSidebar from "@/components/AdminSidebar"
+
 const AdminPanel = () => {
   return (
-    <div>AdminPanel</div>
+    <div className="min-h-screen w-full flex flex-col items-center">
+      <AdminSidebar/>
+    </div>
   )
 }
 export default AdminPanel

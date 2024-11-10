@@ -55,7 +55,9 @@ export default function AdminLogin() {
     <div>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button className="bg-blue-600 hover:bg-blue-700 text-white">Admin Login</Button>
+          <Button className="w-full" variant="outline">
+            Admin Login
+          </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>

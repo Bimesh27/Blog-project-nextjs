@@ -32,18 +32,24 @@ const MenuBar = ({isLogin} : MenuBarProps) => {
         <SheetContent className="flex flex-col items-center">
           <SheetHeader>
             <SheetTitle>Options</SheetTitle>
-            <SheetDescription aria-disabled/>
+            <SheetDescription aria-disabled />
           </SheetHeader>
           {isLogin ? <AdminLogout /> : <AdminLogin />}
           {isLogin && (
-            <Link href={"/admin/admin-panel"}>
-              <Button
-                className="bg-blue-600 hover:bg-blue-700 text-white"
+            <div className="w-full flex flex-col gap-4 items-start uppercase font-medium tracking-wider">
+              <Link
+                href={"/admin/admin-panel"}
                 onClick={() => setOpen(false)}
+                className="hover:underline transition-all"
               >
-                Admin Panel
-              </Button>
-            </Link>
+                  Admin Panel
+              </Link>
+
+              <Link href="/"
+              className="hover:underline transition-all">
+                Available course
+              </Link>
+            </div>
           )}
         </SheetContent>
       </Sheet>
