@@ -10,6 +10,7 @@ import {
   TableCell,
 } from "@/components/ui/table";
 import LoadingDots from "../LoadingDots";
+import { Delete, Edit, TrashIcon } from "lucide-react";
 
 const AdminCourse = () => {
   const { courses, getCourse } = useCourseStore();
@@ -46,8 +47,12 @@ const AdminCourse = () => {
                 <TableCell className="truncate">{course.description}</TableCell>
                 <TableCell className="text-right">
                   <div className="space-x-4 flex justify-end">
-                    <Button>Edit</Button>
-                    <Button>Delete</Button>
+                    <Button>
+                      <Edit />
+                    </Button>
+                    <Button className="bg-red-500 hover:bg-red-600">
+                      <TrashIcon />
+                    </Button>
                   </div>
                 </TableCell>
               </TableRow>
