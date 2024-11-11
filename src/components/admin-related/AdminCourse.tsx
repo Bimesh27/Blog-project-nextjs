@@ -10,7 +10,7 @@ import {
   TableCell,
 } from "@/components/ui/table";
 import LoadingDots from "../LoadingDots";
-import { Delete, Edit, TrashIcon } from "lucide-react";
+import { Edit, TrashIcon } from "lucide-react";
 
 const AdminCourse = () => {
   const { courses, getCourse } = useCourseStore();
