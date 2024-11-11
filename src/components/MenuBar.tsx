@@ -32,7 +32,7 @@ const MenuBar = ({ isLogin }: MenuBarProps) => {
             <SheetTitle>Options</SheetTitle>
             <SheetDescription aria-disabled />
           </SheetHeader>
-          {isLogin ? <AdminLogout /> : <AdminLogin />}
+          {isLogin ? <AdminLogout setOpen={setOpen}/> : <AdminLogin setOpen={setOpen}/>}
           {isLogin && (
             <div className="w-full flex flex-col gap-4 items-start uppercase font-medium tracking-wider">
               <Link

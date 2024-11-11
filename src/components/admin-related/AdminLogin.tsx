@@ -13,12 +13,16 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { useState } from "react";
+import React, { useState } from "react";
 
-export default function AdminLogin() {
+interface AdminLoginProps {
+  setOpen : React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export default function AdminLogin({setOpen}: AdminLoginProps) {
   const [passcode, setPasscode] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const { toast } = useToast();
 
   const handleSubmit = async () => {
@@ -33,6 +37,7 @@ export default function AdminLogin() {
         });
         setOpen(false);
         setPasscode("");
+        setOpen(false);
       } else {
         toast({
           variant: "destructive",
@@ -40,6 +45,7 @@ export default function AdminLogin() {
           description: "Invalid passcode",
         });
         setPasscode("");
+        setOpen(false);
       }
     } catch (error) {
       toast({
@@ -47,13 +53,13 @@ export default function AdminLogin() {
       });
     } finally {
       setIsLoading(false);
-      setOpen(false);
+      setIsOpen(false);
     }
   };
 
   return (
     <div>
-      <Dialog open={open} onOpenChange={setOpen}>
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
           <Button className="w-full" variant="outline">
             Admin Login
