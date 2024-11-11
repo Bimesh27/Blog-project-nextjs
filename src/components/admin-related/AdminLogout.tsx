@@ -1,8 +1,8 @@
 "use client";
 import { logoutAdmin } from "@/app/admin/actions/auth";
-import { Button } from "./ui/button";
 import { toast } from "@/hooks/use-toast";
 import { LucideLogOut } from "lucide-react";
+import { Button } from "../ui/button";
 
 const AdminLogout = () => {
   const handleLogout = async () => {
@@ -21,6 +21,10 @@ const AdminLogout = () => {
     }
   };
 
-  return <Button onClick={handleLogout} className="absolute bottom-4 left-4"><LucideLogOut/></Button>;
+  return (
+    <Button onClick={handleLogout} className="absolute bottom-4 left-4">
+      <LucideLogOut />
+    </Button>
+  );
 };
 export default AdminLogout;

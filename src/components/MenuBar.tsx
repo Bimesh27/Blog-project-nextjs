@@ -9,23 +9,22 @@ import {
 } from "@/components/ui/sheet";
 
 import { MenuIcon } from "lucide-react";
-import AdminLogout from "./AdminLogout";
 import Link from "next/link";
-import AdminLogin from "./AdminLogin";
+import AdminLogin from "./admin-related/AdminLogin";
 import { useState } from "react";
+import AdminLogout from "./admin-related/AdminLogout";
 
 interface MenuBarProps {
   isLogin: boolean;
 }
 
-const MenuBar = ({isLogin} : MenuBarProps) => {
-
+const MenuBar = ({ isLogin }: MenuBarProps) => {
   const [open, setOpen] = useState<boolean>(false);
 
   return (
     <div>
       <Sheet open={open} onOpenChange={setOpen}>
-        <SheetTrigger>
+        <SheetTrigger aria-label="Menu" role="button">
           <MenuIcon />
         </SheetTrigger>
         <SheetContent className="flex flex-col items-center">
@@ -41,11 +40,10 @@ const MenuBar = ({isLogin} : MenuBarProps) => {
                 onClick={() => setOpen(false)}
                 className="hover:underline transition-all"
               >
-                  Admin Panel
+                Admin Panel
               </Link>
 
-              <Link href="/"
-              className="hover:underline transition-all">
+              <Link href="/" className="hover:underline transition-all">
                 Available course
               </Link>
             </div>
