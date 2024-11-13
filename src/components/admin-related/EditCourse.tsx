@@ -16,6 +16,8 @@ import { tomorrow } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { Label } from "../ui/label";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { Textarea } from "../ui/textarea";
+import useCourseStore from "@/zustand/useCourseStore";
+import { toast } from "@/hooks/use-toast";
 
 interface EditCourseProps {
   course: {
@@ -26,8 +28,10 @@ interface EditCourseProps {
 }
 
 const EditCourse = ({ course }: EditCourseProps) => {
+  const { updateCourse } = useCourseStore();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [formData, setFormData] = useState({
     title: course.title,
     description: course.description,
@@ -44,8 +48,33 @@ const EditCourse = ({ course }: EditCourseProps) => {
     }));
   };
 
-  const handleSubmit = () => {
-    console.log(formData);
+  const handleSubmit = async () => {
+    setIsLoading(true);
+    try {
+      const { title, description, codeExample } = formData;
+      const res = await updateCourse({
+        title,
+        description,
+        codeExample,
+      });
+      if (res) {
+        toast({
+          description: "Course updated successfully",
+        });
+        setIsOpen(false);
+      } else {
+        toast({
+          description: "Failed to update course",
+        });
+      }
+    } catch (error) {
+      toast({
+        description: "Something went wrong" + error,
+      });
+      setIsLoading(false);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -56,7 +85,7 @@ const EditCourse = ({ course }: EditCourseProps) => {
             <Edit className="bg-transparent" />
           </Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px] flex flex-col justify-center">
+        <DialogContent className="sm:max-w-[450px] flex flex-col justify-center">
           <DialogHeader>
             <DialogTitle>Edit</DialogTitle>
             <DialogDescription>
@@ -103,10 +132,12 @@ const EditCourse = ({ course }: EditCourseProps) => {
                 <div className="relative">
                   <div className="rounded-md overflow-hidden">
                     <SyntaxHighlighter
-                      language={formData.title.toLowerCase().replace("++", "pp")}
+                      language={formData.title
+                        .toLowerCase()
+                        .replace("++", "pp")}
                       style={tomorrow}
                       showLineNumbers
-                      className="min-h-[250px] min-w-[300px]"
+                      className="min-h-[250px] min-w-[300px] sm:w-[400px]"
                       customStyle={{ margin: 0 }}
                     >
                       {formData.codeExample}
@@ -126,7 +157,7 @@ const EditCourse = ({ course }: EditCourseProps) => {
           </div>
           <DialogFooter>
             <Button type="submit" onClick={handleSubmit}>
-              Save changes
+              {isLoading ? "Saving..." : "Save Changes"}
             </Button>
           </DialogFooter>
         </DialogContent>

@@ -17,7 +17,9 @@ interface CourseState {
   courses: CourseCredentials[];
   addCourse: (crdentials: CourseCredentials) => void;
   getCourse: () => void;
-  updateCourse: (Credentials: UpdateCourseCredentials) => void;
+  updateCourse: (
+    Credentials: UpdateCourseCredentials
+  ) => Promise<CourseCredentials | null>;
   deleteCourse: (title: string) => void;
 }
 
@@ -67,20 +69,23 @@ const useCourseStore = create<CourseState>((set) => ({
 
   updateCourse: async (credentials) => {
     try {
-      const response = await fetch("/api/course", {
+      const response = await fetch(`/api/course/${credentials.title}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(credentials),
+        body: JSON.stringify({
+          title: credentials.title,
+          description: credentials.description,
+          codeExample: credentials.codeExample,
+        }),
       });
       if (!response.ok) {
         throw new Error("Failed to update course");
       }
+      const data = await response.json();
 
-      const updatedCourse = await response.json();
-
-      return updatedCourse;
+      return data;
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : "Unknown Error";
