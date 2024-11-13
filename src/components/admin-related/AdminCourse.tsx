@@ -12,6 +12,7 @@ import {
 import LoadingDots from "../LoadingDots";
 import { TrashIcon } from "lucide-react";
 import EditCourse from "./EditCourse";
+import DeleteCourse from "./DeleteCourse";
 
 const AdminCourse = () => {
   const { courses, getCourse } = useCourseStore();
@@ -49,9 +50,7 @@ const AdminCourse = () => {
                 <TableCell className="text-right">
                   <div className="space-x-4 flex justify-end">
                     <EditCourse course={course}/>
-                    <Button className="bg-red-500 hover:bg-red-600">
-                      <TrashIcon />
-                    </Button>
+                    <DeleteCourse course={course}/>
                   </div>
                 </TableCell>
               </TableRow>

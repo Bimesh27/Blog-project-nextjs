@@ -83,8 +83,15 @@ const useCourseStore = create<CourseState>((set) => ({
       if (!response.ok) {
         throw new Error("Failed to update course");
       }
-      const data = await response.json();
 
+      const data = await response.json();
+      set((state) => ({
+        courses: state.courses.map((course) =>
+          course.title === credentials.title
+            ? { ...course, ...data.course }
+            : course
+        ),
+      }));
       return data;
     } catch (error) {
       const errorMessage =
