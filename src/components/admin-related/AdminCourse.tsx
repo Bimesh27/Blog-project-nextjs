@@ -1,7 +1,6 @@
 "use client";
 import useCourseStore from "@/zustand/useCourseStore";
 import { useEffect, useState } from "react";
-import { Button } from "../ui/button";
 import {
   Table,
   TableHeader,
@@ -10,7 +9,6 @@ import {
   TableCell,
 } from "@/components/ui/table";
 import LoadingDots from "../LoadingDots";
-import { TrashIcon } from "lucide-react";
 import EditCourse from "./EditCourse";
 import DeleteCourse from "./DeleteCourse";
 

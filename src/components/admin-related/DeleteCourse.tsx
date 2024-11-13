@@ -36,7 +36,7 @@ const DeleteCourse = ({ course }: DeleteCourseProps) => {
       });
     } catch (error) {
       toast({
-        description: "Failed to delete course",
+        description: "Failed to delete course" + error,
       });
     } finally {
       setIsLoading(false);
