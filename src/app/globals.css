@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  font-family: Poppins
+  font-family: Poppins;
 }
 
 @layer base {
@@ -88,3 +88,26 @@ body {
   }
 }
 
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #10b981;
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #059669;
+}
+
+/* For Firefox */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #03c786 transparent;
+}

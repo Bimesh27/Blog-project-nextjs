@@ -65,7 +65,7 @@ const AddCourse = () => {
   };
 
   return (
-    <div className="text-center mt-20">
+    <div className="text-center my-20">
       <h1 className="m-2 font-semibold">Manage your courses</h1>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>

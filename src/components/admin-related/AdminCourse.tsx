@@ -8,7 +8,6 @@ import {
   TableRow,
   TableCell,
 } from "@/components/ui/table";
-import LoadingDots from "../LoadingDots";
 import EditCourse from "./EditCourse";
 import DeleteCourse from "./DeleteCourse";
 import AddCourse from "./AddCourse";
@@ -26,38 +25,64 @@ const AdminCourse = () => {
   }, [getCourse]);
 
   return (
-    <div className="h-[calc(100vh-4rem)] border p-4 md:p-6 lg:p-8">
+    <div className="h-[calc(100vh-4rem)] flex flex-col border p-4 md:p-6 lg:p-8">
       <h1 className="mb-4 font-semibold text-xl">Courses</h1>
-      {isLoading ? (
-        <div className="flex justify-center items-center h-full">
-          <LoadingDots />
-        </div>
-      ) : (
-        <Table className="w-full">
-          <TableHeader>
+
+      {/* Fixed height container for table */}
+      <div className="flex-1 min-h-0 overflow-auto custom-scrollbar">
+        <Table className="w-full relative">
+          <TableHeader className="sticky top-0 font-semibold z-10">
             <TableRow>
-              <TableCell className="truncate">Title</TableCell>
-              <TableCell className="truncate">Description</TableCell>
-              <TableCell className="text-right">Actions</TableCell>
+              <TableCell className="w-1/3">Title</TableCell>
+              <TableCell className="w-1/2">Description</TableCell>
+              <TableCell className="w-1/6 text-right">Actions</TableCell>
             </TableRow>
           </TableHeader>
-          <TableBody>
-            {courses.map((course) => (
-              <TableRow key={course.title}>
-                <TableCell className="truncate">{course.title}</TableCell>
-                <TableCell className="truncate">{course.description}</TableCell>
-                <TableCell className="text-right">
-                  <div className="space-x-4 flex justify-end">
-                    <EditCourse course={course}/>
-                    <DeleteCourse course={course}/>
-                  </div>
-                </TableCell>
-              </TableRow>
-            ))}
+
+          <TableBody className="relative">
+            {isLoading
+              ? // Skeleton loading state with fixed height rows
+                Array(5)
+                  .fill(0)
+                  .map((_, index) => (
+                    <TableRow key={index}>
+                      <TableCell className="h-16">
+                        <div className="h-4 bg-gray-200 rounded animate-pulse w-3/4"></div>
+                      </TableCell>
+                      <TableCell className="h-16">
+                        <div className="h-4 bg-gray-200 rounded animate-pulse w-1/2"></div>
+                      </TableCell>
+                      <TableCell className="h-16 text-right">
+                        <div className="flex justify-end space-x-4">
+                          <div className="h-8 w-8 bg-gray-200 rounded animate-pulse"></div>
+                          <div className="h-8 w-8 bg-gray-200 rounded animate-pulse"></div>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))
+              : courses.map((course) => (
+                  <TableRow key={course.title} className="h-16">
+                    <TableCell className="w-1/3">
+                      <div className="truncate">{course.title}</div>
+                    </TableCell>
+                    <TableCell className="w-1/2">
+                      <div className="truncate">{course.description}</div>
+                    </TableCell>
+                    <TableCell className="w-1/6 text-right">
+                      <div className="space-x-4 flex justify-end">
+                        <EditCourse course={course} />
+                        <DeleteCourse course={course} />
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
           </TableBody>
         </Table>
-      )}
-      <AddCourse/>
+      </div>
+
+      <div className="mt-4">
+        <AddCourse />
+      </div>
     </div>
   );
 };
