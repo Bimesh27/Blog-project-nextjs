@@ -15,7 +15,7 @@ interface UpdateCourseCredentials {
 interface CourseState {
   loading: boolean;
   courses: CourseCredentials[];
-  addCourse: (crdentials: CourseCredentials) => void;
+  addCourse: (crdentials: CourseCredentials) => Promise<CourseCredentials | null>;
   getCourse: () => void;
   updateCourse: (
     Credentials: UpdateCourseCredentials
@@ -41,6 +41,8 @@ const useCourseStore = create<CourseState>((set) => ({
       const newCourse = await response.json();
 
       set((state) => ({ courses: [...state.courses, newCourse.course] }));
+
+      return newCourse;
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : "Unknown Error";

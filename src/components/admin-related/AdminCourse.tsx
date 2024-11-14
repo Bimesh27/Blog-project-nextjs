@@ -11,6 +11,7 @@ import {
 import LoadingDots from "../LoadingDots";
 import EditCourse from "./EditCourse";
 import DeleteCourse from "./DeleteCourse";
+import AddCourse from "./AddCourse";
 
 const AdminCourse = () => {
   const { courses, getCourse } = useCourseStore();
@@ -56,6 +57,7 @@ const AdminCourse = () => {
           </TableBody>
         </Table>
       )}
+      <AddCourse/>
     </div>
   );
 };
