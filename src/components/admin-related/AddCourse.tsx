@@ -43,6 +43,7 @@ const AddCourse = () => {
         title: formData.title,
         description: formData.description,
         codeExample: formData.codeExample,
+        show: true,
       });
       if (res) {
         toast({
