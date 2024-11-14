@@ -1,3 +1,4 @@
+import Course from "@/models/Course";
 import mongoose from "mongoose";
 
 const connectDB = async () => {

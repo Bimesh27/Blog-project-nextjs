@@ -65,7 +65,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="custom-scrollbar">
       <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       <body className={poppins.variable}>
         <ThemeProvider
@@ -77,7 +77,7 @@ export default function RootLayout({
           <div className="min-h-screen">
             <Navbar />
             {children}
-            <Toaster/>
+            <Toaster />
           </div>
         </ThemeProvider>
       </body>

@@ -4,6 +4,7 @@ interface ICourse extends Document {
   title: string;
   description: string;
   codeExample: string;
+  show: boolean;
 }
 
 const courseSchema = new mongoose.Schema<ICourse>({
@@ -21,6 +22,12 @@ const courseSchema = new mongoose.Schema<ICourse>({
     type: String,
     required: true,
   },
+  show: {
+    type: Boolean,
+    required: true,
+    default: true,
+  }
+  
 });
 
 const Course =

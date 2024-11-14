@@ -7,6 +7,7 @@ import ThreeDotLoading from "./ThreeDotLoading";
 
 const CourseWrapper = () => {
   const { courses, getCourse, loading } = useCourseStore();
+  const coursesToShow = courses.filter((course) => course.show !== false);
 
   useEffect(() => {
     const fetchCourse = async () => {
@@ -26,7 +27,9 @@ const CourseWrapper = () => {
   return (
     <div className="w-full flex flex-col min-w-80">
       {courses &&
-        courses.map((course) => <Course course={course} key={course.title} />)}
+        coursesToShow.map((course) => (
+          <Course course={course} key={course.title} />
+        ))}
     </div>
   );
 };

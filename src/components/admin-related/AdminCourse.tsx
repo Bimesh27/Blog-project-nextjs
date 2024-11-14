@@ -11,6 +11,7 @@ import {
 import EditCourse from "./EditCourse";
 import DeleteCourse from "./DeleteCourse";
 import AddCourse from "./AddCourse";
+import ShowCourse from "./ShowCourse";
 
 const AdminCourse = () => {
   const { courses, getCourse } = useCourseStore();
@@ -56,6 +57,7 @@ const AdminCourse = () => {
                         <div className="flex justify-end space-x-4">
                           <div className="h-8 w-8 bg-gray-200 rounded animate-pulse"></div>
                           <div className="h-8 w-8 bg-gray-200 rounded animate-pulse"></div>
+                          <div className="h-8 w-8 bg-gray-200 rounded animate-pulse"></div>
                         </div>
                       </TableCell>
                     </TableRow>
@@ -69,9 +71,10 @@ const AdminCourse = () => {
                       <div className="truncate">{course.description}</div>
                     </TableCell>
                     <TableCell className="w-1/6 text-right">
-                      <div className="space-x-4 flex justify-end">
+                      <div className="space-x-4 flex justify- items-center">
                         <EditCourse course={course} />
                         <DeleteCourse course={course} />
+                        <ShowCourse course={course} />
                       </div>
                     </TableCell>
                   </TableRow>

@@ -88,6 +88,7 @@ const AddCourse = () => {
                 id="title"
                 defaultValue={formData.title}
                 onChange={handleChange}
+                required
               />
 
               <Label htmlFor="description">Description</Label>
@@ -95,6 +96,7 @@ const AddCourse = () => {
                 id="description"
                 defaultValue={formData.description}
                 onChange={handleChange}
+                required
               />
             </section>
 
@@ -107,13 +109,14 @@ const AddCourse = () => {
                   value={formData.codeExample}
                   onChange={handleChange}
                   className="min-h-[300px] sm:min-h-[200px] font-mono p-4 max-h-[350px]"
+                  required
                 />
               </div>
             </section>
           </div>
           <AlertDialogFooter>
-            <Button type="submit" onClick={handleSubmit}>
-              {isLoading ? "Saving..." : "Save Changes"}
+            <Button type="submit" onClick={handleSubmit} className="text-white">
+              {isLoading ? "Adding..." : "Add Course"}
             </Button>
           </AlertDialogFooter>
         </DialogContent>
