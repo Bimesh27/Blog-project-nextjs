@@ -11,11 +11,11 @@ const contentSchema = z.object({
 
 export async function POST(
   request: Request,
-  { params }: { params: { title: string } }
+  { params }: { params: Promise<{ title: string }> }
 ) {
   await connectDB();
   try {
-    const { title: courseTitle } = params;
+    const { title: courseTitle } = await params;
 
     const body = await request.json();
     const { contentTitle, contentText } = contentSchema.parse(body);
@@ -71,11 +71,11 @@ export async function POST(
 
 export async function GET(
   request: Request,
-  { params }: { params: { title: string } }
+  { params }: { params: Promise<{ title: string }> }
 ) {
   await connectDB();
   try {
-    const { title } = params;
+    const { title } = await params;
 
     // Changed from findOne to find to return an array of contents
     const contents = await Content.find({ courseTitle: title });
