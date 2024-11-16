@@ -11,11 +11,11 @@ const contentSchema = z.object({
 
 export async function POST(
   request: Request,
-  { params }: { params: Promise<{ title: string }> }
+  { params }: { params: { title: string } }
 ) {
   await connectDB();
   try {
-    const { title: courseTitle } = await params;
+    const { title: courseTitle } = params;
 
     const body = await request.json();
     const { contentTitle, contentText } = contentSchema.parse(body);
@@ -24,7 +24,7 @@ export async function POST(
       return NextResponse.json(
         {
           message: "All fields are required",
-          error: "All fiels are required",
+          error: "All fields are required",
         },
         { status: 400 }
       );
@@ -71,18 +71,25 @@ export async function POST(
 
 export async function GET(
   request: Request,
-  { params }: { params: Promise<{ title: string }> }
+  { params }: { params: { title: string } }
 ) {
   await connectDB();
   try {
-    const { title } = await params;
-    const content = await Content.findOne({ courseTitle: title });
-    if (!content) {
-      return NextResponse.json({ error: "Content not found" }, { status: 404 });
+    const { title } = params;
+
+    // Changed from findOne to find to return an array of contents
+    const contents = await Content.find({ courseTitle: title });
+
+    // Return empty array if no content found instead of 404
+    if (!contents || contents.length === 0) {
+      return NextResponse.json(
+        { message: "No content found", data: [] },
+        { status: 200 }
+      );
     }
 
     return NextResponse.json(
-      { message: "Content found", data: content },
+      { message: "Content found", data: contents },
       { status: 200 }
     );
   } catch (error) {
@@ -90,7 +97,11 @@ export async function GET(
       error instanceof Error ? error.message : "Unknown error";
     console.log("Content fetch failed", errorMessage);
     return NextResponse.json(
-      { message: "Content fetch failed", error: "Internal server error" },
+      {
+        message: "Content fetch failed",
+        error: "Internal server error",
+        data: [],
+      },
       { status: 500 }
     );
   }

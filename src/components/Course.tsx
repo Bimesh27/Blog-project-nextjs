@@ -21,7 +21,7 @@ const Course = ({ course }: CourseProps) => {
           <p className="text-center text-wrap">{course.description}</p>
         </div>
         <Link
-          href={`/learn/${course.title.toLowerCase().replace("++", "pp")}`}
+          href={`/course/${course.title.replace("++", "pp")}`}
           className="bg-emerald-500 dark:bg-emerald-600 rounded-full px-8 py-2.5 font-semibold"
         >
           Learn {course.title}
