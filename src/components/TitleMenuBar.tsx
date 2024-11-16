@@ -3,11 +3,6 @@
 import { useContentStore } from "@/zustand/useContentStore";
 import { useEffect } from "react";
 
-interface ContentTitleProps {
-  contentTitle: string;
-  contentText: string;
-  courseTitle: string;
-}
 
 interface TitleMenuBarProps {
   title: string;
@@ -23,7 +18,7 @@ const TitleMenuBar = ({ title }: TitleMenuBarProps) => {
     };
 
     fetchContent();
-  }, [title]);
+  }, [title, getContent]);
 
   return (
     <div className="flex flex-col border min-w-60 h-[calc(100vh-4rem)] items-center ">
