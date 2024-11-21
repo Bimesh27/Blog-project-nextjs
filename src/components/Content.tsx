@@ -1,13 +1,21 @@
-interface ContentCredentials {
-  contentTitle: string;
-  contentText: string;
-  courseTitle: string;
+interface ContentProps{
+  contentTitle : string;
+  contentText : string;
+  courseTitle : string;
 }
-const Content = ({ specificContent }: ContentCredentials) => {
+
+interface filteredContentProps {
+  filteredContent : ContentProps | undefined;
+}
+
+const Content = ({filteredContent}: filteredContentProps) => {
   return (
     <div>
-      <p>{specificContent.contentText}</p>
+      <h1>
+        {filteredContent?.contentText}
+      </h1>
     </div>
+
   );
 };
 export default Content;

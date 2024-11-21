@@ -8,7 +8,7 @@ interface ContentCredentials {
 
 interface TitleMenuBarProps {
   title: string;
-  setContentToShow: React.Dispatch<React.SetStateAction<string >>;
+  setContentToShow: React.Dispatch<React.SetStateAction<string | undefined>>;
   content: ContentCredentials[];
 }
 

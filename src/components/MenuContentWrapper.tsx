@@ -9,24 +9,28 @@ interface MenuContentWrapperProps {
 }
 
 const MenuContentWrapper = ({ title }: MenuContentWrapperProps) => {
-  const { content, getContent, getContentByTitle, specificContent } =
+  const { content, getContent } =
     useContentStore();
   console.log("All content", content);
-  const [contentToShow, setContentToShow] = useState<string>(
-    content?.[0]?.contentTitle
-  );
+  const [contentToShow, setContentToShow] = useState<string | undefined>(undefined);
   console.log("content to show", contentToShow);
-  console.log("Specific content", specificContent);
   
 
   useEffect(() => {
     const fetchContent = async () => {
       await getContent(title);
-      await getContentByTitle(title, contentToShow);
     };
 
     fetchContent();
   }, [title, getContent]);
+
+  useEffect(() => {
+    if(content && content.length > 0) {
+      setContentToShow(content[0].contentTitle);
+    }
+  },[content]);
+
+  const filteredContent = content?.find(c => c.contentTitle === contentToShow);
 
   return (
     <div className="w-full min-h-[calc(100vh-4rem)] flex">
@@ -35,8 +39,7 @@ const MenuContentWrapper = ({ title }: MenuContentWrapperProps) => {
         setContentToShow={setContentToShow}
         content={content}
       />
-      <Content specificContent={specificContent} />
-      {/* Ill pass the content later after i fix the bug hehe*/}
+      <Content filteredContent={filteredContent}/>
     </div>
   );
 };
