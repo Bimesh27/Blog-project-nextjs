@@ -16,10 +16,10 @@ import { useToast } from "@/hooks/use-toast";
 import React, { useState } from "react";
 
 interface AdminLoginProps {
-  setOpen : React.Dispatch<React.SetStateAction<boolean>>
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function AdminLogin({setOpen}: AdminLoginProps) {
+export default function AdminLogin({ setOpen }: AdminLoginProps) {
   const [passcode, setPasscode] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);

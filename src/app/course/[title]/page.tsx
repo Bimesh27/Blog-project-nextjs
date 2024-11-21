@@ -1,5 +1,5 @@
-import TitleMenuBar from "@/components/TitleMenuBar";
-import Content from "@/components/ui/Content";
+import MenuContentWrapper from "@/components/MenuContentWrapper";
+
 
 export default async function CoursePage({
   params,
@@ -7,11 +7,10 @@ export default async function CoursePage({
   params: Promise<{ title: string }>;
 }) {
   const { title } = await params;
-
+  
   return (
     <div className="flex">
-      <TitleMenuBar title={title} />
-      <Content />
+      <MenuContentWrapper title={title}/>
     </div>
   );
 }

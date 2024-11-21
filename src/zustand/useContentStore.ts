@@ -9,16 +9,23 @@ interface ContentCredentials {
 interface ContentState {
   loading: boolean;
   content: ContentCredentials[]; // Ensure this is always an array
+  specificContent: ContentCredentials;
   error: string | null;
   addContent: (
     credentials: ContentCredentials,
     title: string
   ) => Promise<ContentCredentials | null>;
   getContent: (title: string) => Promise<void>;
+  getContentByTitle: (title: string, contentTitle: string) => Promise<void>;
 }
 
 export const useContentStore = create<ContentState>((set) => ({
   content: [], // Initialize as empty array
+  specificContent: {
+    contentTitle: "",
+    contentText: "",
+    courseTitle: "",
+  },
   loading: false,
   error: null,
 
@@ -72,7 +79,6 @@ export const useContentStore = create<ContentState>((set) => ({
         content: Array.isArray(data.data) ? data.data : [],
         loading: false,
       });
-      
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : "Unknown Error";
@@ -80,6 +86,25 @@ export const useContentStore = create<ContentState>((set) => ({
       console.error("Content fetch failed:", errorMessage);
       // Set empty array on error
       set({ content: [] });
+    }
+  },
+
+  getContentByTitle: async (title, contentTitle) => {
+    set({ loading: true, error: null });
+    try {
+      const response = await fetch(
+        `/api/course/${title}/content/${contentTitle}`
+      );
+      if (!response.ok) {
+        throw new Error(`Failed to fetch content: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      set({ specificContent.contentText : data.content.contentText, loading: false });
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : "Unknown Error";
+      set({ error: errorMessage, loading: false });
     }
   },
 }));

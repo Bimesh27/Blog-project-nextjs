@@ -29,22 +29,22 @@ const MenuBar = ({ isLogin }: MenuBarProps) => {
         </SheetTrigger>
         <SheetContent className="flex flex-col items-center">
           <SheetHeader>
-            <SheetTitle>Options</SheetTitle>
+            <SheetTitle className="text-md uppercase">Options</SheetTitle>
             <SheetDescription aria-disabled />
           </SheetHeader>
-          {isLogin ? <AdminLogout setOpen={setOpen}/> : <AdminLogin setOpen={setOpen}/>}
+          {isLogin ? (
+            <AdminLogout setOpen={setOpen} />
+          ) : (
+            <AdminLogin setOpen={setOpen} />
+          )}
           {isLogin && (
             <div className="w-full flex flex-col gap-4 items-start uppercase font-medium tracking-wider">
               <Link
                 href={"/admin/admin-panel"}
                 onClick={() => setOpen(false)}
-                className="hover:underline transition-all"
+                className="transition-all w-full text-center hover:bg-gray-200 dark:hover:bg-gray-900 py-2 font-semibold text-sm hover:scale-105"
               >
                 Admin Panel
-              </Link>
-
-              <Link href="/" className="hover:underline transition-all">
-                Available course
               </Link>
             </div>
           )}
