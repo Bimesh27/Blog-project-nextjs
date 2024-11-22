@@ -12,8 +12,11 @@ interface TitleMenuBarProps {
   content: ContentCredentials[];
 }
 
-const TitleMenuBar = ({ title, setContentToShow, content }: TitleMenuBarProps) => {
-
+const TitleMenuBar = ({
+  title,
+  setContentToShow,
+  content,
+}: TitleMenuBarProps) => {
   return (
     <div className="flex flex-col border min-w-60 h-[calc(100vh-4rem)] items-center ">
       <h1 className="mt-2">{title} Tutorial</h1>
