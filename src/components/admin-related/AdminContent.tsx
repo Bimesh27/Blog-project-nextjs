@@ -9,6 +9,7 @@ import {
 } from "../ui/table";
 import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 const AdminContent = () => {
   const { getCourse, courses } = useCourseStore();
@@ -60,7 +61,9 @@ const AdminContent = () => {
 
                     <TableCell className="w-1/6 text-right">
                       <div className="space-x-4 flex justify- items-center">
-                        <Button>Show Content</Button>
+                        <Button asChild>
+                          <Link href={`/admin/admin-panel/show-content/${course.title}`}>Show Content</Link>
+                        </Button>
                       </div>
                     </TableCell>
                   </TableRow>
