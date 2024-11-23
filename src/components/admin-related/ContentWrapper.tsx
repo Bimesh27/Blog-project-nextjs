@@ -11,7 +11,7 @@ import {
 import EditContent from "./EditContent";
 
 const ContentWrapper = ({ title }: { title: string }) => {
-  const { getContent, content, addContent } = useContentStore();
+  const { getContent, content } = useContentStore(); // use addContent later
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {

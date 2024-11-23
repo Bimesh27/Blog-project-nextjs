@@ -10,7 +10,7 @@ import {
 import { Button } from "../ui/button";
 import { useState } from "react";
 import { Input } from "../ui/input";
-import { Edit, Plus } from "lucide-react";
+import { Edit } from "lucide-react";
 import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
 import { AlertDialogFooter } from "../ui/alert-dialog";
