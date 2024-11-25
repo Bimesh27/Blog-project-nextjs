@@ -9,8 +9,6 @@ import {
   TableRow,
 } from "../ui/table";
 import EditContent from "./EditContent";
-import { Button } from "../ui/button";
-import { Plus } from "lucide-react";
 import AddContent from "./AddContent";
 
 const ContentWrapper = ({ title }: { title: string }) => {

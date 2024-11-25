@@ -36,7 +36,6 @@ const EditContent = ({
   contentTitle,
   contentText,
   courseTitle,
-  addContent,
 }: EditContentProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [formData, setFormData] = useState<ContentCredentials>({
