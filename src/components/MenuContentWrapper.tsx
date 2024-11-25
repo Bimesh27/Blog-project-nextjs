@@ -9,12 +9,12 @@ interface MenuContentWrapperProps {
 }
 
 const MenuContentWrapper = ({ title }: MenuContentWrapperProps) => {
-  const { content, getContent } =
-    useContentStore();
+  const { content, getContent } = useContentStore();
   console.log("All content", content);
-  const [contentToShow, setContentToShow] = useState<string | undefined>(undefined);
+  const [contentToShow, setContentToShow] = useState<string | undefined>(
+    undefined
+  );
   console.log("content to show", contentToShow);
-  
 
   useEffect(() => {
     const fetchContent = async () => {
@@ -25,12 +25,14 @@ const MenuContentWrapper = ({ title }: MenuContentWrapperProps) => {
   }, [title, getContent]);
 
   useEffect(() => {
-    if(content && content.length > 0) {
+    if (content && content.length > 0) {
       setContentToShow(content[0].contentTitle);
     }
-  },[content]);
+  }, [content]);
 
-  const filteredContent = content?.find(c => c.contentTitle === contentToShow);
+  const filteredContent = content?.find(
+    (c) => c.contentTitle === contentToShow
+  );
 
   return (
     <div className="w-full min-h-[calc(100vh-4rem)] flex">
@@ -39,7 +41,12 @@ const MenuContentWrapper = ({ title }: MenuContentWrapperProps) => {
         setContentToShow={setContentToShow}
         content={content}
       />
-      <Content filteredContent={filteredContent}/>
+      {filteredContent && (
+        <Content
+          filteredContent={filteredContent}
+          key={filteredContent?.contentTitle}
+        />
+      )}
     </div>
   );
 };

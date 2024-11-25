@@ -1,6 +1,5 @@
 import MenuContentWrapper from "@/components/MenuContentWrapper";
 
-
 export default async function CoursePage({
   params,
 }: {
