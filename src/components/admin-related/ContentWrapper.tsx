@@ -72,6 +72,7 @@ const ContentWrapper = ({ title }: { title: string }) => {
                             contentTitle={c.contentTitle}
                             contentText={c.contentText}
                             courseTitle={title}
+                            contentId={c._id as string}
                             addContent={addContent}
                           />
                         </div>

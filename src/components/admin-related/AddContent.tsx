@@ -178,7 +178,7 @@ const AddContent = ({ title }: { title: string }) => {
                     {isCodeMode ? "Exit Code Mode" : "Add Code"}
                   </Button>
                 </div>
-                <div className="mt-10 md:mt-0 p-4 border text-white w-full min-h-48 max-sm:min-h-56 min-w-[50%]">
+                <div className="mt-10 md:mt-0 p-4 border text-white w-full min-h-48 max-sm:min-h-56 min-w-[50%] overflow-y-scroll max-h-56">
                   {renderContent()}
                 </div>
               </div>

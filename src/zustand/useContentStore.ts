@@ -1,6 +1,7 @@
 import { create } from "zustand";
 
 interface ContentCredentials {
+  _id?: string;
   contentTitle: string;
   contentText: string;
   courseTitle: string;
@@ -15,6 +16,11 @@ interface ContentState {
     title: string
   ) => Promise<ContentCredentials | null>;
   getContent: (title: string) => Promise<void>;
+  editContent: (
+    credentials: ContentCredentials,
+    title: string,
+    contentId: string
+  ) => Promise<ContentCredentials | null>;
 }
 
 export const useContentStore = create<ContentState>((set) => ({
@@ -82,4 +88,47 @@ export const useContentStore = create<ContentState>((set) => ({
     }
   },
 
+  editContent: async (credentials, title, contentId) => {
+    set({ loading: true, error: null });
+    try {
+      const response = await fetch(
+        `/api/course/${title}/content?contentId=${contentId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            contentTitle: credentials.contentTitle,
+            contentText: credentials.contentText,
+          }),
+        }
+      );
+
+      // Parse the response
+      const data = await response.json();
+
+      // Check if the response was successful
+      if (!response.ok) {
+        // If not successful, throw an error with the server's error message
+        throw new Error(data.message || "Failed to update content");
+      }
+      set((state) => ({
+        content: state.content.map((item) =>
+          item._id === contentId ? { ...item, ...data.content } : item
+        ),
+        loading: false,
+      }));
+      // If successful, you might want to do something with the response
+      return data;
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : "Unknown error";
+      set({
+        loading: false,
+        error: errorMessage || "An unexpected error occurred",
+      });
+      throw error;
+    }
+  },
 }));
