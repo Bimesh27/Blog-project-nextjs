@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Sheet,
   SheetContent,
@@ -5,6 +7,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { MenuIcon } from "lucide-react";
+import { useState } from "react";
 
 interface ContentCredentials {
   contentTitle: string;
@@ -25,9 +28,10 @@ const TitleMenuForSmallScree = ({
   setContentToShow,
   title,
 }: TitleMenuBarProps) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
     <div className="md:hidden max-w-[14rem]">
-      <Sheet>
+      <Sheet open={isOpen} onOpenChange={setIsOpen}>
         <SheetTrigger>
           <MenuIcon className="mt-4 ml-2" />
         </SheetTrigger>
@@ -49,6 +53,7 @@ const TitleMenuForSmallScree = ({
                   <p
                     onClick={() => {
                       setContentToShow(content.contentTitle);
+                      setIsOpen(false);
                     }}
                   >
                     {content.contentTitle}
