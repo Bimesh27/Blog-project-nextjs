@@ -10,9 +10,12 @@ import {
 } from "../ui/table";
 import EditContent from "./EditContent";
 import AddContent from "./AddContent";
+import { Delete, Trash } from "lucide-react";
+import { Button } from "../ui/button";
+import { toast } from "@/hooks/use-toast";
 
 const ContentWrapper = ({ title }: { title: string }) => {
-  const { getContent, content, addContent } = useContentStore(); // use addContent later
+  const { getContent, content, addContent, deleteContent } = useContentStore(); // use addContent later
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -24,9 +27,22 @@ const ContentWrapper = ({ title }: { title: string }) => {
     fetchContent();
   }, [title, getContent]);
 
+  const handleDelete = async (contentId: string) => {
+    const res = await deleteContent(title, contentId);
+    if (res) {
+      toast({
+        description: "Content deleted successfully",
+      });
+    } else {
+      toast({
+        description: "Failed to delete content",
+      });
+    }
+  };
+
   return (
     <div className="w-full h-[calc(100vh-4rem)] flex flex-col items-center justify-center">
-      <div className="h-full flex flex-col p-4 md:p-6 lg:p-8 w-full ">
+      <div className="min-h-[20rem] max-h-[32rem] flex flex-col p-4 md:p-6 lg:p-8 w-full ">
         <h1 className="mb-4 font-bold text-xl">{title} Content</h1>
         {/* Fixed height container for table */}
         <div className="flex-1 min-h-0 overflow-auto custom-scrollbar">
@@ -63,7 +79,7 @@ const ContentWrapper = ({ title }: { title: string }) => {
                       <TableCell className="w-1/3">
                         <div className="truncate">{c.contentTitle}</div>
                       </TableCell>
-                      <TableCell className="w-1/2">
+                      <TableCell className=" max-w-96">
                         <div className="truncate">{c.contentText}</div>
                       </TableCell>
                       <TableCell className="w-1/6 text-right">
@@ -75,6 +91,14 @@ const ContentWrapper = ({ title }: { title: string }) => {
                             contentId={c._id as string}
                             addContent={addContent}
                           />
+                          <Button
+                            className="bg-red-500 hover:bg-red-600 text-white"
+                            onClick={() => {
+                              handleDelete(c._id as string);
+                            }}
+                          >
+                            <Trash />
+                          </Button>
                         </div>
                       </TableCell>
                     </TableRow>
@@ -83,7 +107,7 @@ const ContentWrapper = ({ title }: { title: string }) => {
           </Table>
         </div>
       </div>
-      <AddContent title={title}/>
+      <AddContent title={title} />
     </div>
   );
 };

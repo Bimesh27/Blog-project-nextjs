@@ -16,6 +16,10 @@ interface ContentState {
     title: string
   ) => Promise<ContentCredentials | null>;
   getContent: (title: string) => Promise<void>;
+  deleteContent: (
+    title: string,
+    contentId: string
+  ) => Promise<ContentCredentials | void>;
   editContent: (
     credentials: ContentCredentials,
     title: string,
@@ -43,7 +47,8 @@ export const useContentStore = create<ContentState>((set) => ({
         throw new Error(`Failed to create content: ${response.statusText}`);
       }
 
-      const newContent = await response.json();
+      const data = await response.json();
+      const newContent = data.content;
       set((state) => ({
         content: [...state.content, newContent],
         loading: false,
@@ -85,6 +90,36 @@ export const useContentStore = create<ContentState>((set) => ({
       console.error("Content fetch failed:", errorMessage);
       // Set empty array on error
       set({ content: [] });
+    }
+  },
+
+  deleteContent: async (title, contentId) => {
+    set({ loading: true, error: null });
+    try {
+      const response = await fetch(
+        `/api/course/${title}/content?contentId=${contentId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Failed to delete content: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      set((state) => ({
+        content: state.content.filter((item) => item._id !== contentId),
+        loading: false,
+      }));
+      return data;
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : "Unknown Error";
+      set({ error: errorMessage, loading: false });
     }
   },
 

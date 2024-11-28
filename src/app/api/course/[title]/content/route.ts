@@ -1,7 +1,7 @@
 import connectDB from "@/lib/mongoose";
 import Content from "@/models/Content";
 import Course from "@/models/Course";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
 const contentSchema = z.object({
@@ -43,6 +43,17 @@ export async function POST(
     const course = await Course.findOne({ title: courseTitle });
     if (!course) {
       return NextResponse.json({ error: "Course not found" }, { status: 404 });
+    }
+
+    const isContentAlreadyExists = await Content.findOne({ contentTitle });
+    if (isContentAlreadyExists) {
+      return NextResponse.json(
+        {
+          message: "Content already exists",
+          error: "Content already exists",
+        },
+        { status: 400 }
+      );
     }
 
     const newContent = await Content.create({
@@ -206,11 +217,57 @@ export async function PUT(request: Request) {
       { status: 200 }
     );
   } catch (error: unknown) {
-    const errorMessage = error instanceof Error ? error.message : "Unknown error";
+    const errorMessage =
+      error instanceof Error ? error.message : "Unknown error";
     console.error("Comprehensive Error:", error);
     return NextResponse.json(
       {
         message: "Failed to update content",
+        error: errorMessage || "Internal server error",
+      },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(request: Request) {
+  await connectDB();
+  try {
+    const url = new URL(request.url);
+    const contentId = url.searchParams.get("contentId");
+
+    if (!contentId) {
+      return NextResponse.json(
+        {
+          message: "Content ID is required",
+          error: "Content ID is required",
+        },
+        { status: 400 }
+      );
+    }
+
+    const deletedContent = await Content.findByIdAndDelete(contentId);
+    if (!deletedContent) {
+      return NextResponse.json(
+        { message: "Content not found", error: "Content not found" },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(
+      {
+        message: "Content deleted successfully",
+        content: deletedContent,
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    const errorMessage =
+      error instanceof Error ? error.message : "Unknown error";
+    console.error("Comprehensive Error:", error);
+    return NextResponse.json(
+      {
+        message: "Failed to delete content",
         error: errorMessage || "Internal server error",
       },
       { status: 500 }

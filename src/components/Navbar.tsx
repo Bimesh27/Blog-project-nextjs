@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ModeToggle } from "./ToggleTheme";
 import MenuBar from "./MenuBar";
 import { checkLogin } from "@/app/admin/actions/auth";
+import AvatarProfile from "./Avatar";
 
 const Navbar = async () => {
   const isLogin = await checkLogin();
@@ -11,8 +12,9 @@ const Navbar = async () => {
       <Link href="/" className="text-3xl font-bold">
         C<span className="text-emerald-500">G</span>.
       </Link>
-      <div className="flex gap-4 items-center">
+      <div className="flex gap-4 items-center ">
         <ModeToggle />
+        {isLogin && <AvatarProfile />}
         <MenuBar isLogin={isLogin} />
       </div>
     </div>

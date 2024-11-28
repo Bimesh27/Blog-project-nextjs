@@ -43,9 +43,11 @@ const Content = ({ filteredContent }: FilteredContentProps) => {
   };
 
   return (
-    <div className="content-container">
-      <h1 className="content-title">{filteredContent?.contentTitle}</h1>
-      <div className="content-text">{renderContent()}</div>
+    <div className="content-container p-4 flex text-wrap flex-col w-full min-h-[calc(100vh-4rem)]">
+      <h1 className="content-title font-semibold text-xl my-4 text-green-400">
+        {filteredContent?.contentTitle}
+      </h1>
+      <div className="w-full">{renderContent()}</div>
     </div>
   );
 };

@@ -39,10 +39,42 @@ const AddContent = ({ title }: { title: string }) => {
   };
 
   const handleSubmit = async () => {
+    // Validate content before submission
+    if (!formData.contentTitle.trim()) {
+      toast({
+        description: "Content title cannot be empty",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (!formData.contentText.trim()) {
+      toast({
+        description: "Content text cannot be empty",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setLoading(true);
     try {
-      const res = await addContent(formData, title);
+      const res = await addContent(
+        {
+          ...formData,
+          // Trim and clean the content
+          contentTitle: formData.contentTitle.trim(),
+          contentText: formData.contentText.trim(),
+        },
+        title
+      );
+
       if (res) {
+        // Reset form after successful submission
+        setFormData({
+          contentTitle: "",
+          contentText: "",
+          courseTitle: title,
+        });
         setIsOpen(false);
         toast({
           description: "Content added successfully",
@@ -50,7 +82,8 @@ const AddContent = ({ title }: { title: string }) => {
       }
     } catch (error) {
       toast({
-        description: "Failed to add content" + error,
+        description: `Failed to add content: ${error}`,
+        variant: "destructive",
       });
     } finally {
       setLoading(false);
@@ -116,21 +149,44 @@ const AddContent = ({ title }: { title: string }) => {
   };
 
   const renderContent = () => {
-    const codeBlockRegex = /```c([\s\S]*?)```/g; // Regex to find code blocks
-    const splitContent = formData.contentText.split(codeBlockRegex);
+    try {
+      // Ensure contentText is a string and not undefined
+      const contentText = formData.contentText || "";
+      const codeBlockRegex = /```\s*(?:c)?\s*\n([\s\S]*?)\n*```/g;
 
-    return splitContent.map((part, index) => {
-      if (index % 2 === 1) {
-        // This is a code block
-        return (
-          <SyntaxHighlighter key={index} language="c" style={dracula}>
-            {part.trim()}
-          </SyntaxHighlighter>
-        );
+      // If no content, return null or a placeholder
+      if (!contentText.trim()) {
+        return <p>No content to display</p>;
       }
-      // Otherwise it's regular text
-      return <p key={index}>{part}</p>;
-    });
+    
+      const splitContent = contentText.split(codeBlockRegex);
+
+      return splitContent
+        .map((part, index) => {
+          const trimmedPart = part.trim();
+
+          // Skip empty parts
+          if (!trimmedPart) return null;
+
+          if (index % 2 === 1) {
+            // Code block
+            return (
+              <SyntaxHighlighter key={index} language="c" style={dracula}>
+                {trimmedPart}
+              </SyntaxHighlighter>
+            );
+          }
+
+          // Regular text
+          return <p key={index}>{trimmedPart}</p>;
+        })
+        .filter(Boolean); // Remove null entries
+    } catch (error) {
+      console.error("Render content error:", error);
+      return <p>Error rendering content</p>;
+    } finally {
+      // return true;
+    }
   };
 
   return (
@@ -179,7 +235,7 @@ const AddContent = ({ title }: { title: string }) => {
                   </Button>
                 </div>
                 <div className="mt-10 md:mt-0 p-4 border text-white w-full min-h-48 max-sm:min-h-56 min-w-[50%] overflow-y-scroll max-h-56">
-                  {renderContent()}
+                  {formData.contentText ? renderContent() : null}
                 </div>
               </div>
             </section>

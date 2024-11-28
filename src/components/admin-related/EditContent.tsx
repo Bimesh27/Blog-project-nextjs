@@ -144,8 +144,9 @@ const EditContent = ({
   };
 
   const renderContent = () => {
-    const codeBlockRegex = /```c([\s\S]*?)```/g; // Regex to find code blocks
-    const splitContent = formData.contentText.split(codeBlockRegex);
+    const codeBlockRegex = /```\s*(?:c)?\s*\n([\s\S]*?)\n*```/g; // Regex to find code blocks
+    const contentText = formData.contentText || "";
+    const splitContent = contentText.split(codeBlockRegex);
 
     return splitContent.map((part, index) => {
       if (index % 2 === 1) {
