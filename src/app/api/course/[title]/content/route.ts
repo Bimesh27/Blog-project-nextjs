@@ -1,7 +1,7 @@
 import connectDB from "@/lib/mongoose";
 import Content from "@/models/Content";
 import Course from "@/models/Course";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { z } from "zod";
 
 const contentSchema = z.object({

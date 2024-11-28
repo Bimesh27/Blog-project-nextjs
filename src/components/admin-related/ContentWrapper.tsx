@@ -10,7 +10,7 @@ import {
 } from "../ui/table";
 import EditContent from "./EditContent";
 import AddContent from "./AddContent";
-import { Delete, Trash } from "lucide-react";
+import { Trash } from "lucide-react";
 import { Button } from "../ui/button";
 import { toast } from "@/hooks/use-toast";
 
