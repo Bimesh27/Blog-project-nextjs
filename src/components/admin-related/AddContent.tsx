@@ -182,7 +182,7 @@ const AddContent = ({ title }: { title: string }) => {
         })
         .filter(Boolean); // Remove null entries
     } catch (error) {
-      return <p>Error rendering content</p>;
+      return <p>{`Error rendering content ${error}`}</p>;
     } finally {
       // return true;
     }
