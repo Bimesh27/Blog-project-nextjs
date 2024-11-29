@@ -13,11 +13,9 @@ interface MenuContentWrapperProps {
 const MenuContentWrapper = ({ title }: MenuContentWrapperProps) => {
   const { content, getContent } = useContentStore();
   const [loading, setLoading] = useState<boolean>(true);
-  console.log("All content", content);
   const [contentToShow, setContentToShow] = useState<string | undefined>(
     undefined
   );
-  console.log("content to show", contentToShow);
 
   useEffect(() => {
     setLoading(true);

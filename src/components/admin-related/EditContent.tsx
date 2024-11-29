@@ -62,7 +62,6 @@ const EditContent = ({
   };
 
   const handleSubmit = async () => {
-    console.log("Form data", formData);
 
     const res = await editContent(
       {
