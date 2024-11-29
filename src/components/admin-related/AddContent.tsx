@@ -221,7 +221,7 @@ const AddContent = ({ title }: { title: string }) => {
                   <Textarea
                     id="contentText"
                     value={formData.contentText}
-                    className="min-h-[300px] sm:min-h-[200px] font-mono p-4 max-h-[350px] .custom-scrollbar"
+                    className="min-h-[200px] sm:min-h-[200px] font-mono p-4 max-h-[300px] .custom-scrollbar"
                     required
                     onChange={handleChange}
                     onKeyDown={handleTabKey} // Handle Tab key press
@@ -233,7 +233,7 @@ const AddContent = ({ title }: { title: string }) => {
                     {isCodeMode ? "Exit Code Mode" : "Add Code"}
                   </Button>
                 </div>
-                <div className="mt-10 md:mt-0 p-4 border text-white w-full min-h-48 max-sm:min-h-56 min-w-[50%] overflow-y-scroll max-h-56">
+                <div className="mt-10 md:mt-0 p-4 border text-white w-full min-h-40 max-sm:min-h-54 min-w-[50%] overflow-y-scroll max-h-56">
                   {formData.contentText ? renderContent() : null}
                 </div>
               </div>
