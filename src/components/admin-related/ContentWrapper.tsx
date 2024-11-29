@@ -92,7 +92,7 @@ const ContentWrapper = ({ title }: { title: string }) => {
                             addContent={addContent}
                           />
                           <Button
-                            className="bg-red-500 hover:bg-red-600 text-white"
+                            className="bg-red-600 hover:bg-red-700 text-white"
                             onClick={() => {
                               handleDelete(c._id as string);
                             }}

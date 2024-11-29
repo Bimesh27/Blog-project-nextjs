@@ -166,7 +166,7 @@ const EditContent = ({
     <div className="text-center">
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
-          <Button className="bg-blue-500 hover:bg-blue-600 text-white">
+          <Button className="bg-blue-600 hover:bg-blue-700 text-white">
             Edit or Add <Edit />
           </Button>
         </DialogTrigger>

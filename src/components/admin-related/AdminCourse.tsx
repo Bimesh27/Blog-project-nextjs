@@ -26,7 +26,7 @@ const AdminCourse = () => {
   }, [getCourse]);
 
   return (
-    <div className="h-[calc(100vh-4rem)] flex flex-col border p-4 md:p-6 lg:p-8">
+    <div className="h-[calc(100vh-4rem)] flex flex-col p-4 md:p-6 lg:p-8 max-md:ml-12">
       <h1 className="mb-4 font-semibold text-xl">Courses</h1>
 
       {/* Fixed height container for table */}

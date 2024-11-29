@@ -10,7 +10,7 @@ const AdminSidebar = ({
   setSelectedOption,
 }: AdminSidebarProps) => {
   return (
-    <div className="min-w-60 h-screen fixed left-0 flex justify-center border max-md:hidden">
+    <div className="min-w-60 h-screen fixed left-0 flex justify-center max-md:hidden">
       <div className="flex flex-col items-center gap-4 w-full p-4 cursor-pointer">
         <h1
           className={`${

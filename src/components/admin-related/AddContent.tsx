@@ -158,7 +158,7 @@ const AddContent = ({ title }: { title: string }) => {
       if (!contentText.trim()) {
         return <p>No content to display</p>;
       }
-    
+
       const splitContent = contentText.split(codeBlockRegex);
 
       return splitContent
@@ -193,7 +193,7 @@ const AddContent = ({ title }: { title: string }) => {
     <div className="text-center my-20">
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
-          <Button className="bg-blue-500 hover:bg-blue-600 text-white">
+          <Button className="bg-blue-600 hover:bg-blue-700 text-white">
             Add New Content
             <Plus className="ml-2" />
           </Button>
@@ -245,7 +245,7 @@ const AddContent = ({ title }: { title: string }) => {
             <Button
               type="submit"
               onClick={handleSubmit}
-              className="bg-blue-500 hover:bg-blue-600 text-white"
+              className="bg-blue-600 hover:bg-blue-700 text-white"
             >
               {loading ? "Adding..." : "Add Content"}
             </Button>

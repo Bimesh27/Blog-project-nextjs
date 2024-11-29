@@ -61,8 +61,13 @@ const AdminContent = () => {
 
                     <TableCell className="w-1/6 text-right">
                       <div className="space-x-4 flex justify- items-center">
-                        <Button asChild>
-                          <Link href={`/admin/admin-panel/show-content/${course.title}`}>Show Content</Link>
+                        <Button asChild className="bg-blue-600 hover:bg-blue-700">
+                          <Link
+                            href={`/admin/admin-panel/show-content/${course.title}`}
+                            className="text-white"
+                          >
+                            Show Content
+                          </Link>
                         </Button>
                       </div>
                     </TableCell>
